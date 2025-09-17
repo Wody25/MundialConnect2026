@@ -1,0 +1,15 @@
+/* styles.css - Tema Mundial de Fútbol 2026 */
+body { font-family: Arial, Helvetica, sans-serif; margin:0; padding:20px; color:#222; }
+.bg { background: linear-gradient(135deg, #006847 40%, #ce1126 100%); min-height:100vh; }
+.container { max-width:900px; margin:0 auto; padding:10px; }
+.card { background:white; padding:20px; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.15); margin:20px 0; }
+input[type="text"], input[type="email"], input[type="password"] { width:100%; padding:10px; margin-top:6px; margin-bottom:12px; border:1px solid #ccc; border-radius:4px; }
+label { display:block; font-weight:600; margin-bottom:6px; }
+button { padding:10px 14px; border:none; border-radius:6px; background:#006847; color:white; cursor:pointer; font-weight:600; }
+button:hover { background:#004d33; }
+.error { background:#ffe6e6; color:#900; padding:8px; border-radius:4px; margin-bottom:10px; }
+.topbar { background:#ce1126; color:white; padding:12px 0; }
+.topbar .container { display:flex; justify-content:space-between; align-items:center; }
+a { color:#006847; text-decoration:none; font-weight:600; }
+a:hover { text-decoration:underline; }
+.news { list-style:disc; margin-left:20px; }

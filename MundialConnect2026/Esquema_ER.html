@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Esquema ER - MundialConnect 2026</title>
+<style>
+body { font-family: Arial, sans-serif; background:#f0f2f5; margin:20px; }
+h1 { text-align:center; color:#006847; }
+.diagram { display:flex; flex-wrap: wrap; justify-content:center; gap:40px; margin-bottom:40px; }
+.table-box { background:white; border-radius:8px; padding:15px; box-shadow:0 4px 10px rgba(0,0,0,0.1); min-width:200px; text-align:center; }
+.table-box h3 { margin:0 0 10px; color:#ce1126; }
+.table-box ul { list-style:none; padding:0; margin:0; }
+.table-box ul li { padding:4px 0; border-bottom:1px solid #eee; }
+.table-box ul li:last-child { border-bottom:none; }
+.relationships { max-width:800px; margin:0 auto; text-align:left; font-weight:bold; color:#444; }
+.relationships p { margin:8px 0; }
+.arrow { color:#006847; margin-right:5px; }
+</style>
+</head>
+<body>
+
+<h1>Esquema ER - MundialConnect 2026</h1>
+
+<div class="diagram">
+
+  <div class="table-box">
+    <h3>Usuarios</h3>
+    <ul>
+      <li>id (PK)</li>
+      <li>nombre</li>
+      <li>email</li>
+      <li>password_hash</li>
+      <li>fecha_registro</li>
+    </ul>
+  </div>
+
+  <div class="table-box">
+    <h3>Perfiles</h3>
+    <ul>
+      <li>id (PK)</li>
+      <li>usuario_id (FK → Usuarios.id)</li>
+      <li>equipo_favorito</li>
+      <li>avatar_url</li>
+    </ul>
+  </div>
+
+  <div class="table-box">
+    <h3>Amistades</h3>
+    <ul>
+      <li>id (PK)</li>
+      <li>usuario1 (FK → Usuarios.id)</li>
+      <li>usuario2 (FK → Usuarios.id)</li>
+      <li>estado</li>
+      <li>fecha_solicitud</li>
+    </ul>
+  </div>
+
+  <div class="table-box">
+    <h3>Equipos</h3>
+    <ul>
+      <li>id (PK)</li>
+      <li>nombre</li>
+      <li>grupo</li>
+      <li>pais_bandera</li>
+    </ul>
+  </div>
+
+  <div class="table-box">
+    <h3>Favoritos</h3>
+    <ul>
+      <li>id (PK)</li>
+      <li>usuario_id (FK → Usuarios.id)</li>
+      <li>equipo_id (FK → Equipos.id)</li>
+      <li>fecha_seleccion</li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- Cardinalidades separadas abajo -->
+<div class="relationships">
+<p><span class="arrow">→</span> Usuarios 1 ── N Perfiles</p>
+<p><span class="arrow">→</span> Usuarios 1 ── N Amistades</p>
+<p><span class="arrow">→</span> Usuarios 1 ── N Favoritos</p>
+<p><span class="arrow">→</span> Equipos 1 ── N Favoritos</p>
+</div>
+
+</body>
+</html>

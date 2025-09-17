@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Kick Off y Primera Entrega - MundialConnect 2026</title>
+<style>
+body { font-family: Arial, Helvetica, sans-serif; line-height: 1.5; padding: 20px; background: #f4f6f8; color: #222; }
+h1, h2, h3 { color: #006847; }
+.section { background: white; padding: 18px; border-radius: 8px; margin-bottom: 16px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+.mockup { display: flex; gap: 16px; flex-wrap: wrap; }
+.mockbox { width: 260px; border: 2px dashed #ccc; padding: 12px; border-radius: 8px; background: #fafafa; }
+.small { font-size: 0.9em; color: #555; }
+ul { padding-left: 20px; }
+</style>
+</head>
+<body>
+<h1>Kick Off y Primera Entrega - MundialConnect 2026</h1>
+
+<div class="section">
+<h2>Nombre de la aplicación</h2>
+<p><strong>MundialConnect 2026</strong></p>
+
+<h2>Objetivo de la aplicación</h2>
+<p>Una plataforma web para aficionados del Mundial de Fútbol 2026, con registro y login de usuarios. Permite acceder a un panel con noticias, resultados y seguimiento de equipos favoritos.</p>
+</div>
+
+<div class="section">
+<h2>Funcionalidades a desarrollar</h2>
+<ul>
+<li>Registro y login de usuarios.</li>
+<li>Dashboard con noticias y resultados del Mundial 2026.</li>
+<li>Gestión de perfiles (equipo favorito, avatar).</li>
+<li>Amigos entre usuarios registrados.</li>
+</ul>
+</div>
+
+<div class="section">
+<h2>Mockups de pantallas</h2>
+<div class="mockup">
+  <div class="mockbox">
+    <h3>Login</h3>
+    <p class="small">Formulario para iniciar sesión con email y contraseña.</p>
+  </div>
+  <div class="mockbox">
+    <h3>Registro</h3>
+    <p class="small">Formulario para crear una nueva cuenta.</p>
+  </div>
+  <div class="mockbox">
+    <h3>Dashboard</h3>
+    <p class="small">Pantalla con noticias, resultados y seguimiento de equipos favoritos del Mundial 2026.</p>
+  </div>
+</div>
+</div>
+
+<div class="section">
+<h2>Diseño de pantallas</h2>
+<ul>
+<li><strong>Login:</strong> Formulario email y contraseña, botón de acceso.</li>
+<li><strong>Registro:</strong> Formulario para crear cuenta nueva con nombre, email y contraseña.</li>
+<li><strong>Dashboard:</strong> Noticias, resultados y panel de seguimiento de equipos favoritos.</li>
+</ul>
+</div>
+
+<div class="section">
+<h2>Diagrama relacional de la base de datos</h2>
+<p>La base de datos incluye las siguientes tablas:</p>
+<ul>
+<li><strong>Usuarios:</strong> id (PK), nombre, email, password_hash, fecha_registro</li>
+<li><strong>Perfiles:</strong> id (PK), usuario_id (FK), equipo_favorito, avatar_url</li>
+<li><strong>Amistades:</strong> id (PK), usuario1 (FK), usuario2 (FK), estado, fecha_solicitud</li>
+</ul>
+<p>Diagrama incluido en <code>er_diagram.svg</code> si quieres visualizarlo gráficamente.</p>
+</div>
+
+<div class="section">
+<h2>Primera entrega</h2>
+<ul>
+<li>Login funcional.</li>
+<li>Registro de usuarios.</li>
+<li>Pantallas diseñadas y mockups.</li>
+<li>Base de datos con todas las tablas creadas.</li>
+</ul>
+</div>
+
+<div class="section">
+<h2>Creador de la aplicación</h2>
+<p>Erick Gael Garcia Moreno<br>Matricula: 2076262</p>
+</div>
+
+</body>
+</html>
