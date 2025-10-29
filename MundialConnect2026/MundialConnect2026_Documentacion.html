@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<title>Kick Off y Primera Entrega - MundialConnect 2026</title>
+<title>Segunda Entrega - MundialConnect 2026</title>
 <style>
 body { font-family: Arial, Helvetica, sans-serif; line-height: 1.5; padding: 20px; background: #f4f6f8; color: #222; }
 h1, h2, h3 { color: #006847; }
@@ -11,26 +11,30 @@ h1, h2, h3 { color: #006847; }
 .mockbox { width: 260px; border: 2px dashed #ccc; padding: 12px; border-radius: 8px; background: #fafafa; }
 .small { font-size: 0.9em; color: #555; }
 ul { padding-left: 20px; }
+code { background: #eee; padding: 2px 4px; border-radius: 4px; }
 </style>
 </head>
 <body>
-<h1>Kick Off y Primera Entrega - MundialConnect 2026</h1>
+<h1>Segunda Entrega - MundialConnect 2026</h1>
 
 <div class="section">
 <h2>Nombre de la aplicación</h2>
 <p><strong>MundialConnect 2026</strong></p>
 
 <h2>Objetivo de la aplicación</h2>
-<p>Una plataforma web para aficionados del Mundial de Fútbol 2026, con registro y login de usuarios. Permite acceder a un panel con noticias, resultados y seguimiento de equipos favoritos.</p>
+<p>Plataforma web para aficionados del Mundial 2026 en México, EE.UU. y Canadá, con registro y login de usuarios. Permite acceder a un dashboard con noticias, resultados, seguimiento de equipos favoritos y perfiles de usuario.</p>
 </div>
 
 <div class="section">
-<h2>Funcionalidades a desarrollar</h2>
+<h2>Funcionalidades actuales y desarrolladas</h2>
 <ul>
-<li>Registro y login de usuarios.</li>
-<li>Dashboard con noticias y resultados del Mundial 2026.</li>
-<li>Gestión de perfiles (equipo favorito, avatar).</li>
-<li>Amigos entre usuarios registrados.</li>
+<li>Registro y login de usuarios con seguridad de contraseña.</li>
+<li>Dashboard con noticias del Mundial 2026 estilo foro.</li>
+<li>Selección y seguimiento de equipos favoritos con visualización de próximos partidos y resultados (en desarrollo).</li>
+<li>Perfil de usuario mostrando información del usuario y sus equipos favoritos.</li>
+<li>Botones de navegación: Logout y Perfil.</li>
+<li>Gestión de favoritos en la base de datos por usuario.</li>
+<li>Animaciones de banderas y texto destacado en el dashboard.</li>
 </ul>
 </div>
 
@@ -43,21 +47,38 @@ ul { padding-left: 20px; }
   </div>
   <div class="mockbox">
     <h3>Registro</h3>
-    <p class="small">Formulario para crear una nueva cuenta.</p>
+    <p class="small">Formulario para crear una nueva cuenta con nombre, email y contraseña.</p>
   </div>
   <div class="mockbox">
     <h3>Dashboard</h3>
-    <p class="small">Pantalla con noticias, resultados y seguimiento de equipos favoritos del Mundial 2026.</p>
+    <p class="small">Noticias, resultados, seguimiento de equipos favoritos, selección de favoritos y botones de Perfil y Logout.</p>
   </div>
+  <div class="mockbox">
+    <h3>Perfil</h3>
+    <p class="small">Muestra información del usuario, avatar, equipos favoritos y botón para regresar al Dashboard.</p>
+  </div>
+  <div class="section">
+<h2>Futura funcionalidad - Amistades</h2>
+<p>Se implementará un sistema de amigos dentro de la plataforma que permitirá a los usuarios:</p>
+<ul>
+  <li>Enviar solicitudes de amistad a otros usuarios registrados.</li>
+  <li>Aceptar o rechazar solicitudes de amistad recibidas.</li>
+  <li>Visualizar un listado de amigos aprobados.</li>
+  <li>Ver publicaciones o noticias compartidas por los amigos, integradas en el dashboard.</li>
+  <li>Integración con la sección de noticias para que los usuarios puedan comentar o reaccionar a publicaciones de amigos (en desarrollo).</li>
+</ul>
+<p class="small">Esta funcionalidad estará conectada con la tabla <code>Amistades</code> de la base de datos.</p>
+</div>
 </div>
 </div>
 
 <div class="section">
-<h2>Diseño de pantallas</h2>
+<h2>Diseño de pantallas y funcionalidades</h2>
 <ul>
-<li><strong>Login:</strong> Formulario email y contraseña, botón de acceso.</li>
-<li><strong>Registro:</strong> Formulario para crear cuenta nueva con nombre, email y contraseña.</li>
-<li><strong>Dashboard:</strong> Noticias, resultados y panel de seguimiento de equipos favoritos.</li>
+<li><strong>Login:</strong> Email y contraseña, botón de acceso.</li>
+<li><strong>Registro:</strong> Nombre, email, contraseña, botón para crear cuenta.</li>
+<li><strong>Dashboard:</strong> Noticias estilo foro, animación de banderas, panel de equipos favoritos, seguimiento de partidos (en desarrollo), botón de Perfil, botón de Logout.</li>
+<li><strong>Perfil:</strong> Información del usuario desde la tabla de perfiles, lista de equipos favoritos, botón para regresar al Dashboard.</li>
 </ul>
 </div>
 
@@ -68,17 +89,21 @@ ul { padding-left: 20px; }
 <li><strong>Usuarios:</strong> id (PK), nombre, email, password_hash, fecha_registro</li>
 <li><strong>Perfiles:</strong> id (PK), usuario_id (FK), equipo_favorito, avatar_url</li>
 <li><strong>Amistades:</strong> id (PK), usuario1 (FK), usuario2 (FK), estado, fecha_solicitud</li>
+<li><strong>Favoritos:</strong> id (PK), usuario_id (FK), equipo_id (FK), fecha_seleccion</li>
+<li><strong>Equipos:</strong> id (PK), nombre, bandera_url</li>
 </ul>
-<p>Diagrama incluido en <code>er_diagram.svg</code> si quieres visualizarlo gráficamente.</p>
+<p>Diagrama incluido en <code>er_diagram.svg</code> para visualización gráfica.</p>
 </div>
 
 <div class="section">
-<h2>Primera entrega</h2>
+<h2>Segunda entrega</h2>
 <ul>
 <li>Login funcional.</li>
 <li>Registro de usuarios.</li>
-<li>Pantallas diseñadas y mockups.</li>
-<li>Base de datos con todas las tablas creadas.</li>
+<li>Dashboard con noticias y selección de equipos favoritos.</li>
+<li>Perfil de usuario mostrando información y favoritos.</li>
+<li>Botones de navegación (Perfil y Logout).</li>
+<li>Base de datos creada con todas las tablas necesarias.</li>
 </ul>
 </div>
 

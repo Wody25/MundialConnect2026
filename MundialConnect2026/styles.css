@@ -13,3 +13,6 @@ button:hover { background:#004d33; }
 a { color:#006847; text-decoration:none; font-weight:600; }
 a:hover { text-decoration:underline; }
 .news { list-style:disc; margin-left:20px; }
+.favorites { list-style:none; padding:0; }
+.favorites li { padding:6px 0; font-size:1.1em; }
+.small { font-size:0.9em; color:#555; }

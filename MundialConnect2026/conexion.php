@@ -1,14 +1,16 @@
 <?php
-// Conexion a SQL Server
-$serverName = "YOUR_SERVER_NAME";
-$database = "MundialConnect2026DB";
-$username = "YOUR_DB_USER";
-$password = "YOUR_DB_PASSWORD";
+$serverName = "LAPTOP-L2AHOEJ1\\SQLEXPRESS";
+$connectionOptions = [
+    "Database" => "MundialConnect2026DB",
+    "CharacterSet" => "UTF-8",
+    "TrustServerCertificate" => true,
+    // "UID" => "sa",
+    // "PWD" => "tu_contraseña"
+];
 
-try {
-    $conn = new PDO("sqlsrv:Server=$serverName;Database=$database", $username, $password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (Exception $e) {
-    die("Error de conexión a la base de datos: " . $e->getMessage());
+$conexion = sqlsrv_connect($serverName, $connectionOptions);
+
+if (!$conexion) {
+    die("❌ Error de conexión: " . print_r(sqlsrv_errors(), true));
 }
 ?>
