@@ -3,62 +3,949 @@
 <head>
 <meta charset="utf-8">
 <title>MundialConnect 2026 - Dashboard</title>
+
+<link rel="icon" type="image/x-icon" href="img/fifa.ico">
 <link rel="stylesheet" href="styles.css">
+
+<style>
+/* ============ CSS =============== */
+.topbar {
+    background: linear-gradient(90deg, #00205B, #D9001D, #000000);
+    padding: 18px 10px;
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.35);
+    border-bottom: 4px solid #ffffff;
+    position: relative;
+    z-index: 10;
+}
+.topbar h2 {
+    margin: 0;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    letter-spacing: 1px;
+    font-size: 26px;
+}
+.notif-icon {
+    position: relative;
+    cursor: pointer;
+    font-size: 28px;
+    color: #FFD700;
+    transition: 0.2s;
+}
+.notif-icon:hover { transform: scale(1.1); }
+.notif-count {
+    position: absolute;
+    top: -6px; right: -6px;
+    background: #D9001D;
+    border: 2px solid white;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 12px;
+}
+header { position: relative; overflow: visible !important; z-index: 1; }
+
+/* ---------- .notif-menu ---------- */
+
+
+.card h3 {
+    background: linear-gradient(90deg,#00205B,#D9001D);
+    color: white;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+
+/* ---------- BUSCADOR ---------- */
+.search-container {
+    display: flex;
+    gap: 3px;
+    margin: 15px 0;
+}
+.search-results {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 5px;
+}
+.search-results li {
+    padding: 6px 8px;
+    border-bottom: 1px solid #ddd;
+}
+.search-results li:last-child { border-bottom: none; }
+.search-results li a {
+    text-decoration: none;
+    color: #00205B;
+    font-weight: bold;
+}
+.search-results li a:hover { color: #D9001D; }
+
+/* ---------- BUSCADOR ---------- */
+.search-container {
+    display: flex;
+    gap: 3px; /* antes 5px, reducido para acercar botón */
+    margin: 15px 0;
+}
+
+.search-container input {
+    flex: 0 0 200px; /* antes flexible, ahora ancho fijo más corto */
+    padding: 6px 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.search-container button {
+    padding: 6px 12px; /* más compacto para que se vea junto */
+    border-radius: 6px;
+    background-color: #00205B;
+    color: white;
+    border: 2px solid #D9001D;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.search-container button:hover {
+    background-color: #00163F;
+}
+
+
+
+/* ---------- NUEVO CSS PARA LOS BOTONES ---------- */
+
+.btn-general {
+    display: inline-block;
+    background-color: #00205B;
+    color: white;
+    border: 2px solid #D9001D;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: 0.2s;
+    margin: 10px 5px;
+}
+.btn-general:hover {
+    background-color: #00163F;
+}
+
+/* Ajuste para ubicación de botones */
+.header-buttons {
+    margin: 10px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+.header-buttons {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;   /* ← apila los botones */
+    align-items: flex-end;    /* ← los mantiene alineados a la derecha */
+    gap: 10px;
+}
+
+
+button[type="submit"] {
+    background-color: #00205B !important;
+    color: white !important;
+    border: 2px solid #D9001D !important;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+button[type="submit"]:hover {
+    background-color: #00163F !important;
+}
+
+.notif-menu .btn-accept, .notif-menu .btn-reject,
+.notif-item .btn-accept, .notif-item .btn-reject {
+    padding:6px 10px; border-radius:6px; border:none; cursor:pointer; font-weight:600;
+}
+.notif-item .btn-accept { background:#00205B; color:#fff; border:2px solid #D9001D; }
+.notif-item .btn-reject { background:#fff; color:#333; border:1px solid #ccc; }
+
+#notifMenu {
+     background: white; /* o el color que quieras */
+    display: none;     /* oculto por defecto */
+    width: 300px;
+    max-height: 400px; /* permitir scroll si hay muchas notificaciones */
+    border-radius: 10px;
+    border: 2px solid #00205B;
+    padding: 0;
+    position: absolute;
+    top: 40px;
+    right: 0;
+    z-index: 9999;
+}
+#notifMenu.open {
+    display: block; /* se muestra solo cuando se hace click en la campana */
+}
+/* ===== Animaciones integradas al header ===== */
+.header-animations {
+  position: relative;
+  width: 100%;
+  padding: 5px 0;
+  background: transparent; /* usa el gradiente del topbar */
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  overflow: hidden;
+}
+
+/* Animación banderas */
+.flag-slider {
+  display: flex;
+  gap: 20px;
+  white-space: nowrap;
+  animation: slideFlags 25s linear infinite;
+}
+.flag-slider img {
+  width: 50px;
+  height: auto;
+}
+@keyframes slideFlags {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+/* Animación frases tipo ticker */
+.ticker-wrapper {
+  overflow: hidden;
+}
+.ticker {
+  display: inline-block;
+  white-space: nowrap;
+  font-weight: bold;
+  font-size: 14px;
+  color: #FFD700; /* dorado tipo FIFA */
+  animation: tickerMove 20s linear infinite;
+}
+@keyframes tickerMove {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+/* ===== Tarjetas Interactivas ===== */
+.history-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.team-card {
+  width: 150px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.25s;
+  border: 2px solid #00205B;
+}
+
+.team-card img {
+  width: 70px;
+  height: auto;
+  margin-bottom: 8px;
+}
+
+.team-card:hover {
+  transform: scale(1.08);
+  background: #00205B;
+  color: white;
+}
+
+.historia-box {
+  margin-top: 20px;
+  padding: 15px;
+  border-left: 4px solid #D9001D;
+  background: #f5f5f5;
+  border-radius: 8px;
+  display: none;
+}
+
+</style>
 </head>
+
 <body class="bg">
 
 <header class="topbar">
-<div class="container">
-<h2>🏆 MundialConnect 2026</h2>
-<div class="user">Bienvenido, Erick Gael Garcia Moreno</div>
+<div class="container" style="display:flex; justify-content: space-between; align-items:center;">
+
+    <h2>🏆 MundialConnect 2026</h2>
+
+    <div class="notif-wrapper" style="display:flex; align-items:center; gap:15px; margin-left: auto;">
+
+        <div class="notif-icon-container">
+            <div class="notif-icon" onclick="toggleNotifMenu()">
+                🔔
+                <span id="notifCount" class="notif-count" style="display:none;">0</span>
+            </div>
+        </div>
+
+        <div id="notifMenu" class="notif-menu"></div>
+
+        <div class="user">Bienvenido, <span id="userNombre">{{userNombre}}</span></div>
+
+    </div>
 </div>
 </header>
+<!-- ===== Animaciones integradas al header ===== -->
+<div class="header-animations">
+  <div class="flag-slider">
+    <img src="img/mexico.png" alt="México">
+    <img src="img/canada.png" alt="Canadá">
+    <img src="img/usa.png" alt="EE.UU.">
+    <img src="img/brazil.png" alt="Brasil">
+    <img src="img/germany.png" alt="Alemania">
+    <img src="img/argentina.png" alt="Argentina">
+    <img src="img/spain.png" alt="España">
+  </div>
+
+  <div class="ticker-wrapper">
+    <div class="ticker">
+      ¡Viva el fútbol! ⚽ ⚡ | MundialConnect 2026 ya comenzó! 🌎 | Apoya a tu equipo favorito! 🏆 | Cada gol cuenta! 🎯 | Vive la pasión del Mundial! 🔥
+    </div>
+  </div>
+</div>
+
+<!-- Botones perfil + logout -->
+<div class="header-buttons">
+    <a href="perfil.php" class="btn-general">Mi Perfil</a>
+    <a href="logout.php" class="btn-general">Cerrar Sesión</a>
+</div>
+
+
+<!-- ===== BUSCADOR DE USUARIOS ===== -->
+<div class="container">
+    <form method="GET" class="search-container">
+        <input type="text" name="buscar_usuario" placeholder="Buscar usuario por nombre" value="">
+        <button type="submit">Buscar</button>
+    </form>
+
+    <!-- RESULTADOS DE BUSQUEDA -->
+    <ul class="search-results">
+        {{searchResults}}
+    </ul>
+</div>
+
+<script>
+const notifBtn = document.querySelector('.notif-icon');
+const notifMenu = document.getElementById('notifMenu');
+const notifCountEl = document.getElementById('notifCount');
+
+let menuOpen = false;
+
+async function fetchNotificaciones() {
+    try {
+        const res = await fetch('cargar_notificaciones.php', { credentials: 'same-origin' });
+        const data = await res.json();
+        if (!data.success) {
+            console.error('Error al cargar notificaciones', data.error);
+            return [];
+        }
+        return data.notifications || [];
+    } catch (err) {
+        console.error('Error fetch notifs', err);
+        return [];
+    }
+}
+
+function renderNotificaciones(notifs) {
+    if (!notifs || notifs.length === 0) {
+        notifMenu.innerHTML = `
+            <div style="padding:14px; max-height:360px; overflow:auto;">
+                <p style="margin:0;">No tienes notificaciones.</p>
+            </div>
+        `;
+        notifCountEl.style.display = 'none';
+        return;
+    }
+
+    // Contador de no-leídas
+    const noLeidas = notifs.filter(n => n.leida === 0).length;
+    if (noLeidas > 0) {
+        notifCountEl.style.display = 'inline-block';
+        notifCountEl.textContent = noLeidas;
+    } else {
+        notifCountEl.style.display = 'none';
+    }
+
+    let html = '<div style="max-height:420px; overflow:auto; padding:8px;">';
+
+    notifs.forEach(n => {
+        // Notificaciones tipo solicitud_amistad mostrarán botones
+        if (n.tipo === 'solicitud_amistad') {
+            html += `
+                <div class="notif-item" style="padding:10px; border-bottom:1px solid #eee; display:flex; flex-direction:column;">
+                    <div style="font-weight:600;">${escapeHtml(n.emisor_nombre || 'Usuario')}</div>
+                    <div style="font-size:13px; margin:6px 0;">${escapeHtml(n.mensaje)}</div>
+                    <div style="display:flex; gap:8px;">
+                        <button class="btn-accept" data-id="${n.id}" data-amistad="${n.id_amistad}" data-emisor="${n.emisor_id}">Aceptar</button>
+                        <button class="btn-reject" data-id="${n.id}" data-amistad="${n.id_amistad}">Rechazar</button>
+                    </div>
+                    <div style="font-size:11px; color:#666; margin-top:6px;">${formatDate(n.fecha)}</div>
+                </div>
+            `;
+        } else {
+            // Otros tipos
+            html += `
+                <div class="notif-item" style="padding:10px; border-bottom:1px solid #eee;">
+                    <div style="font-weight:600;">${escapeHtml(n.emisor_nombre || 'Sistema')}</div>
+                    <div style="font-size:13px; margin-top:4px;">${escapeHtml(n.mensaje)}</div>
+                    <div style="font-size:11px; color:#666; margin-top:6px;">${formatDate(n.fecha)}</div>
+                </div>
+            `;
+        }
+    });
+
+    html += '</div>';
+    notifMenu.innerHTML = html;
+
+   // Añadir listeners a botones
+document.querySelectorAll('.btn-accept').forEach(b => {
+    b.addEventListener('click', async (e) => {
+
+        const idNotif   = e.currentTarget.dataset.id;
+        const idAmistad = e.currentTarget.dataset.amistad;
+        const emisorId  = e.currentTarget.dataset.emisor;
+
+        try {
+            const res = await fetch('aceptar_solicitud.php', {
+                method: 'POST',
+                headers: { 'Content-Type':'application/x-www-form-urlencoded' },
+                body: `notificacion_id=${encodeURIComponent(idNotif)}&id_amistad=${encodeURIComponent(idAmistad)}&emisor_id=${encodeURIComponent(emisorId)}`,
+                credentials: 'same-origin'
+            });
+
+            const r = await res.json();
+
+            if (r.success) {
+
+                // ✅ ELIMINAR NOTIFICACIÓN DEL DOM
+                const item = e.currentTarget.closest(".notif-item");
+                if (item) {
+                    item.remove();
+                }
+
+            } else {
+                alert('Error: ' + (r.error || 'No se pudo aceptar.'));
+            }
+
+        } catch (err) {
+            console.error(err);
+            alert('Error en la petición aceptar.');
+        }
+    });
+});
+
+
+document.querySelectorAll('.btn-reject').forEach(b => {
+    b.addEventListener('click', async (e) => {
+
+        const idNotif   = e.currentTarget.dataset.id;
+        const idAmistad = e.currentTarget.dataset.amistad;
+
+        try {
+            const res = await fetch('rechazar_solicitud.php', {
+                method: 'POST',
+                headers: { 'Content-Type':'application/x-www-form-urlencoded' },
+                body: `notificacion_id=${encodeURIComponent(idNotif)}&id_amistad=${encodeURIComponent(idAmistad)}`,
+                credentials: 'same-origin'
+            });
+
+            const r = await res.json();
+
+            if (r.success) {
+
+                // ❌ ELIMINAR NOTIFICACIÓN DEL DOM
+                const item = e.currentTarget.closest(".notif-item");
+                if (item) {
+                    item.remove();
+                }
+
+            } else {
+                alert('Error: ' + (r.error || 'No se pudo rechazar.'));
+            }
+
+        } catch (err) {
+            console.error(err);
+            alert('Error en la petición rechazar.');
+        }
+    });
+});
+
+}
+
+function escapeHtml(str) {
+    if (!str) return '';
+    return str
+      .replaceAll('&', '&amp;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;')
+      .replaceAll('"', '&quot;')
+      .replaceAll("'", '&#039;');
+}
+
+function formatDate(d) {
+    if (!d) return '';
+    // espera formato 'YYYY-MM-DD HH:MM:SS'
+    try {
+        const dt = new Date(d.replace(' ', 'T'));
+        return dt.toLocaleString();
+    } catch (e) {
+        return d;
+    }
+}
+
+let lastLoad = 0;
+async function loadAndRenderNotifs(force = false) {
+    // evita recargas continuas
+    const now = Date.now();
+    if (!force && (now - lastLoad) < 800) return;
+    lastLoad = now;
+
+    const notifs = await fetchNotificaciones();
+    renderNotificaciones(notifs);
+}
+
+/* Marca como leídas todas las notificaciones no-leídas del usuario */
+async function marcarTodasLeidas() {
+    try {
+        const res = await fetch('marcar_leidas.php', {
+            method: 'POST',
+            credentials: 'same-origin'
+        });
+        const data = await res.json();
+        if (!data.success) console.warn('No se pudieron marcar como leídas', data.error);
+    } catch (err) {
+        console.error('Error marcar leidas', err);
+    }
+}
+
+async function toggleNotifMenu() {
+    menuOpen = !menuOpen;
+    notifMenu.classList.toggle('open', menuOpen);
+
+    if (menuOpen) {
+        // Cargar y renderizar notificaciones
+        await loadAndRenderNotifs(true);
+        // Marcar como leídas en el servidor
+        await marcarTodasLeidas();
+        // actualizar contador visual a 0 (o esconder)
+        notifCountEl.style.display = 'none';
+    }
+}
+
+// Cerrar el menú si se hace click fuera
+document.addEventListener('click', function(e) {
+    if (!notifMenu.contains(e.target) && !notifBtn.contains(e.target)) {
+        if (menuOpen) {
+            menuOpen = false;
+            notifMenu.classList.remove('open');
+        }
+    }
+});
+ // Esto hace que al cargar la página se muestre el contador sin hacer clic
+  document.addEventListener('DOMContentLoaded', async () => {
+      const notifs = await fetchNotificaciones();
+      renderNotificaciones(notifs);
+  });
+
+// (Opcional) refrescar cada X segundos para notifs en tiempo real
+setInterval(async () => {
+    // Si el menú está cerrado, solo actualizar contador
+    if (!menuOpen) {
+        const notifs = await fetchNotificaciones();
+        const noLeidas = notifs.filter(n => n.leida === 0).length;
+        if (noLeidas > 0) {
+            notifCountEl.style.display = 'inline-block';
+            notifCountEl.textContent = noLeidas;
+        } else {
+            notifCountEl.style.display = 'none';
+        }
+    }
+}, 15000); // cada 15s
+
+</script>
 
 <main class="container">
 
-<!-- Panel de equipos favoritos -->
+<!-- ⭐ Mis equipos favoritos -->
 <section class="card">
-<h3>Mis equipos favoritos</h3>
-<ul class="favorites">
-<li>⭐ México</li>
-<li>⭐ Brasil</li>
-<li>⭐ Alemania</li>
-</ul>
+  <h3>Mis equipos favoritos</h3>
+  <ul id="favoritosList">
+      {{listaFavoritos}}
+  </ul>
 </section>
 
-<!-- Formulario para elegir equipos favoritos -->
+<!-- Seleccionar favoritos -->
 <section class="card">
-<h3>Selecciona tus equipos favoritos</h3>
-<form method="post" action="#">
-<label><input type="checkbox" name="favoritos" value="México" checked> México</label><br>
-<label><input type="checkbox" name="favoritos" value="Canadá"> Canadá</label><br>
-<label><input type="checkbox" name="favoritos" value="USA" checked> USA</label><br>
-<label><input type="checkbox" name="favoritos" value="Brasil" checked> Brasil</label><br>
-<label><input type="checkbox" name="favoritos" value="Alemania"> Alemania</label><br>
-<label><input type="checkbox" name="favoritos" value="Japón"> Japón</label><br>
-<label><input type="checkbox" name="favoritos" value="Argentina"> Argentina</label><br>
-<label><input type="checkbox" name="favoritos" value="España"> España</label><br>
-<button type="submit">Guardar favoritos</button>
-</form>
-<p class="small">En la versión final, estos se guardarían en tu cuenta y aparecerían en el panel superior.</p>
+  <h3>Selecciona tus equipos favoritos</h3>
+  <form method="post" action="guardar_favoritos.php">
+      {{checkboxEquipos}}
+      <button type="submit">Guardar favoritos</button>
+  </form>
 </section>
 
-<!-- Noticias y resultados -->
+
 <section class="card">
-<h3>Noticias del Mundial 2026</h3>
-<ul class="news">
-<li><strong>México vs Canadá</strong> - Resultado: 2 - 1</li>
-<li><strong>USA vs Brasil</strong> - Resultado: 0 - 0</li>
-<li><strong>Alemania vs Japón</strong> - Próximo partido mañana 18:00 hrs</li>
-</ul>
+  <h3>🎥 Final Mundial 2022: Argentina vs Francia</h3>
+  <div id="videos-fnal2022"></div>
 </section>
 
-<!-- Espacio de aficionado -->
+<script>
+  function cargarVideosFinal2022() {
+    const videos = [
+      { id: "FA1sR2SZAlY", title: "Resumen completo Argentina 3‑3 Francia + penales" },
+      { id: "IipmpVcISXE", title: "Highlights Final Argentina vs Francia 2022 (FIFA)" }
+    ];
+    let html = "";
+    videos.forEach(v => {
+      html += `
+        <div style="margin-bottom:20px;">
+          <iframe width="320" height="180"
+            src="https://www.youtube.com/embed/${v.id}"
+            frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+          </iframe>
+          <p>${v.title}</p>
+          <a href="https://www.youtube.com/watch?v=${v.id}" target="_blank">Ver en YouTube</a>
+        </div>
+      `;
+    });
+    document.getElementById("videos-fnal2022").innerHTML = html;
+  }
+
+  cargarVideosFinal2022();
+</script>
+
+
+<!-- Foro de Noticias -->
 <section class="card">
-<h3>Tu espacio de aficionado</h3>
-<p>Aquí podrás seguir tus equipos favoritos, revisar resultados y vivir la pasión del Mundial 2026.</p>
+  <h3>📰 Foro de Noticias del Mundial 2026</h3>
+  <ul class="news">
+
+    <li>
+      <strong>Ciudad de México ultima la renovación del Estadio Azteca</strong> – 
+      Las obras avanzan en un 85% e incluyen la modernización de accesos, nueva iluminación LED y mejoras en seguridad.  
+      Aficionados comentan su emoción por ver el histórico estadio recibir su tercer Mundial, algo sin precedentes.
+    </li>
+
+    <li>
+      <strong>Preparativos en Canadá</strong> – 
+      Toronto y Vancouver reportan avances significativos en transporte, alojamiento y capacitación de voluntarios.  
+      Usuarios del foro debaten si Canadá tendrá la mejor organización del torneo debido a su fuerte inversión en logística.
+    </li>
+
+    <li>
+      <strong>Calendario oficial revelado</strong> – 
+      La FIFA publicó la distribución de partidos: inauguración en el Estadio Azteca, fase de grupos repartida entre 16 sedes  
+      y final en Nueva York/New Jersey.  
+      Muchos usuarios celebran la transparencia del calendario tras meses de incertidumbre.
+    </li>
+
+    <li>
+      <strong>Derrota de EE.UU. ante Canadá</strong> – 
+      En un amistoso previo al mundial, Canadá superó 2–1 a Estados Unidos con un gol decisivo en el minuto 87.  
+      En el foro se discute si esta derrota expone debilidades tácticas del equipo estadounidense o si fue solo un tropiezo.
+    </li>
+
+    <li>
+      <strong>Impacto económico en Canadá</strong> – 
+      Un estudio reciente estima que el Mundial generará más de 800 millones de dólares en turismo y empleo.  
+      Analistas debaten si las ganancias compensarán la fuerte inversión en infraestructura de las ciudades sede.
+    </li>
+
+    <li>
+      <strong>Selección mexicana intensifica entrenamientos</strong> – 
+      El Tri entrena en un campamento especial con énfasis en presión alta, tenencia de balón y finalización.  
+      Aficionados discuten si el nuevo esquema táctico ayudará a romper la maldición del quinto partido.
+    </li>
+
+    <li>
+      <strong>Infraestructura en EE.UU. lista</strong> – 
+      Varias sedes estadounidenses anuncian que los estadios ya cumplen con los estándares FIFA.  
+      En el foro se comenta que EE.UU. es el que más rápido concluyó preparativos, incluso antes del plazo oficial.
+    </li>
+
+    <li>
+      <strong>Canadá apuesta por sostenibilidad</strong> – 
+      Las sedes canadienses implementarán energía renovable, reducción de plásticos y transporte ecológico.  
+      Los usuarios debaten si esto marcará un precedente para futuros mundiales.
+    </li>
+
+    <li>
+      <strong>Nuevas reglas de seguridad para los aficionados</strong> – 
+      La FIFA anunció protocolos adicionales relacionados con accesos, revisiones y comportamiento en gradas.  
+      El foro se divide entre quienes apoyan las medidas y quienes las ven demasiado estrictas.
+    </li>
+
+    <li>
+      <strong>Expectativa por el Fan Fest Internacional</strong> –  
+      Las ciudades sede preparan zonas gigantes con pantallas, música, gastronomía y actividades.  
+      Usuarios comparten fotos y experiencias de Fan Fests anteriores, esperando que el 2026 supere todas las ediciones previas.
+    </li>
+
+  </ul>
 </section>
+
+<!-- ================= TARJETAS INTERACTIVAS HISTÓRICAS ================= -->
+<section class="card">
+  <h3>📚 Historia de las Selecciones Clasificadas al Mundial 2026</h3>
+
+  <div id="cards-container" class="history-cards">
+    
+    <!-- CARD: Argentina -->
+    <div class="team-card" onclick="mostrarHistoria('arg')">
+      <img src="img/argentina.png" alt="Argentina">
+      <h4>Argentina</h4>
+    </div>
+
+    <!-- CARD: México -->
+    <div class="team-card" onclick="mostrarHistoria('mex')">
+      <img src="img/mexico.png" alt="México">
+      <h4>México</h4>
+    </div>
+
+    <!-- CARD: Estados Unidos -->
+    <div class="team-card" onclick="mostrarHistoria('usa')">
+      <img src="img/usa.png" alt="USA">
+      <h4>Estados Unidos</h4>
+    </div>
+
+    <!-- CARD: Canadá -->
+    <div class="team-card" onclick="mostrarHistoria('can')">
+      <img src="img/canada.png" alt="Canadá">
+      <h4>Canadá</h4>
+    </div>
+
+    <!-- CARD: Francia -->
+    <div class="team-card" onclick="mostrarHistoria('fra')">
+      <img src="img/francia.png" alt="Francia">
+      <h4>Francia</h4>
+    </div>
+
+    <!-- CARD: Brasil -->
+    <div class="team-card" onclick="mostrarHistoria('bra')">
+      <img src="img/brazil.png" alt="Brasil">
+      <h4>Brasil</h4>
+    </div>
+    <!-- CARD: España -->
+<div class="team-card" onclick="mostrarHistoria('esp')">
+  <img src="img/spain.png" alt="España">
+  <h4>España</h4>
+</div>
+
+<!-- CARD: Alemania -->
+<div class="team-card" onclick="mostrarHistoria('ger')">
+  <img src="img/germany.png" alt="Alemania">
+  <h4>Alemania</h4>
+</div>
+
+
+  </div>
+
+  <!-- Contenedor donde se mostrará cada historia -->
+  <div id="historia-equipo" class="historia-box"></div>
+</section>
+
+
+
+<!-- Noticias API -->
+  <section class="card">
+  <h3>🗞 Noticias Oficiales </h3>
+  <div id="noticias"></div>
+</section>
+
+</section>
+
+<!-- Próximos partidos -->
+<section class="card">
+<div id="partidos"></div>
+
+<script>
+async function cargarPartidos(teams) {
+    if (!teams) return;
+
+    const teamList = teams.split(",");
+
+    document.getElementById("partidos").innerHTML = "Cargando partidos...";
+
+    // HACER PETICIONES POR CADA EQUIPO
+let resultadosHTML = "";
+
+for (let t of teamList) {
+
+    // Obtener el NOMBRE REAL del equipo desde la lista
+    let teamElement = document.querySelector(`[data-id='${t}']`);
+    let teamName = teamElement ? teamElement.textContent.trim() : "Equipo";
+
+    const res = await fetch("get_partidos.php?team=" + t);
+    const data = await res.json();
+
+    resultadosHTML += `<h4>${teamName}</h4>`;
+
+    if (!data.response || data.response.length === 0) {
+        resultadosHTML += "<p>No hay partidos próximos.</p>";
+        continue;
+    }
+
+    data.response.forEach(m => {
+        resultadosHTML += `
+            <div class='match'>
+                <strong>${m.teams.home.name}</strong> vs 
+                <strong>${m.teams.away.name}</strong>
+                <br>
+                Fecha: ${m.fixture.date}
+            </div>
+        `;
+    });
+}
+
+document.getElementById("partidos").innerHTML = resultadosHTML;
+
+}
+
+// CARGAR AUTOMÁTICAMENTE
+cargarPartidos("{{favoritosIDs}}");
+</script>
+<script>
+async function cargarNoticias() {
+    document.getElementById("noticias").innerHTML = "Cargando noticias...";
+
+    const res = await fetch("get_news_fake.php?teams={{favoritosIDs}}");
+    const data = await res.json();
+
+    let html = "";
+
+    if (!data.response || data.response.length === 0) {
+        html = "<p>No hay noticias disponibles.</p>";
+    } else {
+        data.response.forEach(n => {
+            html += `
+                <div class="news-item">
+                    <strong>${n.title}</strong><br>
+                    ${n.description}<br>
+                    <a href="${n.url}" target="_blank">Leer más</a>
+                    <hr>
+                </div>
+            `;
+        });
+    }
+
+    document.getElementById("noticias").innerHTML = html;
+}
+
+cargarNoticias();
+</script>
+<!-- Widget API-Sports filtrando favoritos -->
+<div id="api-content" class="col-span-3 row-span-3 flex flex-col items-center justify-center text-xl font-semibold text-gray-800 text-center">
+  <api-sports-widget data-type="games"></api-sports-widget>
+  <api-sports-widget
+    data-type="config"
+    data-key="5921cc3be28bc23071d3bd8843bff0cc"
+    data-sport="football"
+    data-refresh="15"
+    data-show-logos="true"
+    data-favorite="<?= implode(',', $favoritos_ids) ?>">
+  </api-sports-widget>
+</div>
+
+<script type="module" src="https://widgets.api-sports.io/3.1.0/widgets.js"></script>
+
+</section>
+
+
+<script>
+function toggleNotifMenu() {
+    const menu = document.getElementById('notifMenu');
+    menu.classList.toggle('open'); // alterna la clase que muestra/oculta el menú
+}
+
+// Opcional: cerrar el menú si se hace clic fuera
+document.addEventListener('click', function(event) {
+    const menu = document.getElementById('notifMenu');
+    const icon = document.querySelector('.notif-icon');
+    if (!menu.contains(event.target) && !icon.contains(event.target)) {
+        menu.classList.remove('open');
+    }
+});
+</script>
+
+<script>
+const historiaData = {
+    arg: `
+      <h3>🇦🇷 Argentina</h3>
+      <p><strong>Mundiales ganados:</strong> 3 (1978, 1986, 2022)</p>
+      <p><strong>Figuras históricas:</strong> Maradona, Messi, Kempes</p>
+      <p><strong>Participaciones:</strong> 18+</p>
+    `,
+    mex: `
+      <h3>🇲🇽 México</h3>
+      <p><strong>Mejor participación:</strong> Cuartos de final (1970, 1986)</p>
+      <p><strong>Curiosidad:</strong> País anfitrión del Mundial 2026</p>
+      <p><strong>Participaciones:</strong> 16+</p>
+    `,
+    usa: `
+      <h3>🇺🇸 Estados Unidos</h3>
+      <p><strong>Mejor participación:</strong> Semifinalista (1930)</p>
+      <p><strong>Revelación reciente:</strong> Octavos de final en 2022</p>
+      <p><strong>Participaciones:</strong> 11+</p>
+    `,
+    can: `
+      <h3>🇨🇦 Canadá</h3>
+      <p><strong>Primera aparición:</strong> 1986</p>
+      <p><strong>Nueva generación:</strong> Alphonso Davies, Jonathan David</p>
+      <p><strong>Participaciones:</strong> 3+</p>
+    `,
+    fra: `
+      <h3>🇫🇷 Francia</h3>
+      <p><strong>Mundiales ganados:</strong> 2 (1998, 2018)</p>
+      <p><strong>Jugador histórico:</strong> Zinedine Zidane, Kylian Mbappé</p>
+      <p><strong>Participaciones:</strong> 16+</p>
+    `,
+    bra: `
+      <h3>🇧🇷 Brasil</h3>
+      <p><strong>Mundiales ganados:</strong> 5 (récord mundial)</p>
+      <p><strong>Estrellas:</strong> Pelé, Ronaldo, Neymar</p>
+      <p><strong>Participaciones:</strong> Clasificado a todos los mundiales</p>
+    `,
+        esp: `
+      <h3>🇪🇸 España</h3>
+      <p><strong>Mundiales ganados:</strong> 1 (2010)</p>
+      <p><strong>Mejor época:</strong> Campeona de Eurocopa 2008 y 2012 + Mundial 2010</p>
+      <p><strong>Estilo histórico:</strong> “Tiki-taka”, dominio del balón, juego de posesión</p>
+      <p><strong>Figuras históricas:</strong> Xavi, Iniesta, Casillas, Villa, Puyol</p>
+      <p><strong>Participaciones:</strong> 16+</p>
+    `,
+    ger: `
+      <h3>🇩🇪 Alemania</h3>
+      <p><strong>Mundiales ganados:</strong> 4 (1954, 1974, 1990, 2014)</p>
+      <p><strong>Reconocida por:</strong> disciplina táctica, fuerza física y mentalidad competitiva</p>
+      <p><strong>Figuras históricas:</strong> Beckenbauer, Gerd Müller, Klose, Matthäus, Neuer</p>
+      <p><strong>Participaciones:</strong> 19+</p>
+      <p><strong>Curiosidad:</strong> Es el país con más finales jugadas en la historia del Mundial</p>
+    `,
+
+    
+};
+
+
+// Mostrar historia dentro del div
+function mostrarHistoria(code) {
+    const box = document.getElementById("historia-equipo");
+    box.style.display = "block";
+    box.innerHTML = historiaData[code];
+}
+</script>
+
+
+</body>
+</html>
 
 </main>
 </body>
 </html>
+

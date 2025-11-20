@@ -1,0 +1,45 @@
+Fernanda Moreno  FerMor10@yahoo.com
+Hijos_03
+
+Martin Sanchez  Faze80@hotmail.com
+Primazo_32
+
+Erick Moreno   jamveg25@gmail.com
+Mexico?30
+
+Carlos Rivera    RiveraCanta_32@gmail.com                         
+pUrifica/10
+
+Valeria Sofia Roriguez   ValRodri17@yahoo.com
+TacosSalsa_1
+
+Miguel Treviño   MikeLord7@gmail.com
+SoyelMike_20
+
+
+
+.notif-menu {
+    display: none; /* oculto por defecto */
+    position: absolute;
+    top: 40px;       /* ajusta según altura de la topbar */
+    right: 0;
+    width: 280px;
+    max-height: 400px; /* permite scroll si hay muchas notificaciones */
+    overflow-y: auto;
+    background: white;
+    border-radius: 10px;
+    border: 2px solid #00205B;
+    z-index: 9999 !important;
+    padding: 0;
+}
+
+
+
+
+
+
+
+
+
+API key gugul
+AIzaSyCW0ifRgPbjwyms9WM5G3rSV5VdCPg72hg

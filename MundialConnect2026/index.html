@@ -3,20 +3,108 @@
 <head>
 <meta charset="utf-8">
 <title>MundialConnect 2026 - Login</title>
+ <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="img/fifa.ico">
 <link rel="stylesheet" href="styles.css">
+
+<style>
+/* --- Estilos básicos opcionales para los mensajes de error --- */
+.error-message {
+    color: #ff4b4b;
+    font-size: 0.9em;
+    margin-top: 4px;
+    display: none;
+}
+input.error {
+    border: 2px solid #ff4b4b;
+    background-color: #ffecec;
+}
+.password-hint {
+    display: block;
+    font-size: 0.85em;
+    color: #777;
+    margin-top: 4px;
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const form = document.querySelector("form");
+    const emailInput = form.email;
+    const passwordInput = form.password;
+
+    const emailError = document.getElementById("email-error");
+    const passwordError = document.getElementById("password-error");
+
+    // Regex para validar la contraseña
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9]).{8,}$/;
+
+    form.addEventListener("submit", function(event) {
+        let valid = true;
+
+        // Resetear mensajes y estilos
+        [emailInput, passwordInput].forEach(input => input.classList.remove("error"));
+        emailError.style.display = "none";
+        passwordError.style.display = "none";
+
+        // Validar campo email
+        if (!emailInput.value.trim()) {
+            emailError.textContent = "Por favor, ingresa tu correo electrónico.";
+            emailError.style.display = "block";
+            emailInput.classList.add("error");
+            valid = false;
+        }
+
+        // Validar campo contraseña
+        const password = passwordInput.value.trim();
+        if (!password) {
+            passwordError.textContent = "Por favor, ingresa tu contraseña.";
+            passwordError.style.display = "block";
+            passwordInput.classList.add("error");
+            valid = false;
+        } else if (!passwordRegex.test(password)) {
+            passwordError.textContent = "Debe tener al menos 8 caracteres, una mayúscula, una minúscula y un carácter especial.";
+            passwordError.style.display = "block";
+            passwordInput.classList.add("error");
+            valid = false;
+        }
+
+        if (!valid) event.preventDefault();
+    });
+
+    // Ocultar el mensaje cuando el usuario empieza a escribir
+    [emailInput, passwordInput].forEach(input => {
+        input.addEventListener("input", () => {
+            input.classList.remove("error");
+            if (input === emailInput) emailError.style.display = "none";
+            if (input === passwordInput) passwordError.style.display = "none";
+        });
+    });
+});
+</script>
 </head>
+
 <body class="bg">
 <main class="card">
 <h1>⚽ Inicia sesión en MundialConnect 2026</h1>
+
 <form method="post" action="login.php" novalidate>
     <label>Email
         <input type="email" name="email" required>
+        <div id="email-error" class="error-message"></div>
     </label>
-    <label>Contraseña
-        <input type="password" name="password" required>
-    </label>
+
+   <label>Contraseña
+    <input type="password" name="password" required>
+    <small class="password-hint">
+        Contraseña mínimo de 8 caracteres, mayúsculas, minúsculas, un carácter especial y un número.
+    </small>
+    <div id="password-error" class="error-message"></div>
+</label>
+
     <button type="submit">Ingresar</button>
 </form>
+
 <p>¿No tienes cuenta? <a href="register.html">Regístrate aquí</a></p>
 </main>
 </body>
